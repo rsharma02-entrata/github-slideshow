@@ -18,5 +18,7 @@ jobs:
         run: |
             echo local commitmsg::$(${{ github.event.commits[0].message }})
             echo $commitmsg
-        if: false == contains( $commitmsg , 'Task Id' )
-            echo Task Id is Missing
+            if: false == contains( $commitmsg , 'Task Id' )
+              echo Task Id is Missing
+            if: contains( $commitmsg , 'Task Id' )
+              echo $commitmsg
