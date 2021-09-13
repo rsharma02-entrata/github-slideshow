@@ -16,7 +16,7 @@ jobs:
 
       - name: get commit message
         run: |
-            echo local commitmsg::$(${{ github.event.commits[0].message }})
+            readonly local commitmsg::$(${{ github.event.commits[0].message }})
             echo $commitmsg
             if: false == contains( $commitmsg , 'Task Id' )
               echo Task Id is Missing
