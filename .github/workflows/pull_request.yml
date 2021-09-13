@@ -25,6 +25,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: check Last Commit Message
-        run: | 
-          git log -1 --pretty=format:%s 
-          git log -1 main
+        run: github.event.head_commit.message
