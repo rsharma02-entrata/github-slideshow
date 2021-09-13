@@ -16,13 +16,12 @@ jobs:
 
       - name: get commit message
         run: |
-           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
-      - name: show commit message
-        run : echo $commitmsg
+            echo local commitmsg::$(${{ github.event.commits[0].message }})
+            echo $commitmsg
 
       - name: step1
-        if: contains( env.commitmsg , 'Task Id' )
+        if: contains( $commitmsg , 'Task Id' )
         run: echo hello
       - name: false_Condition
-        if: false == contains( env.commitmsg , 'Task Id' )
+        if: false == contains( $commitmsg , 'Task Id' )
         run: echo Task Id is Missing
