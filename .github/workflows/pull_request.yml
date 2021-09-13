@@ -25,5 +25,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: check Last Commit Message
-        run: git log -1 --pretty=format:%s main
-        run: git log -1 --pretty=format:%s rapid-production
+        run: | 
+          git log -1 --pretty=format:%s main
+          git log -1 --pretty=format:%s rapid-production
