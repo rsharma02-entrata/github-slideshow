@@ -1,4 +1,4 @@
-name: filter commit nessage
+name: filter commit message
 on: pull_request
 
 jobs:
@@ -16,8 +16,7 @@ jobs:
 
       - name: get commit message
         run: |
-            env:
-              commitmsg::$(${{ github.event.commits[0].message }})
+              commitmsg::${{ github.event.head_commit.message }}
               echo $commitmsg
               if: false == contains( $commitmsg , 'Task Id' )
                 echo Task Id is Missing
