@@ -11,8 +11,12 @@ on:
 jobs:
   cleanup_old_branches:
     runs-on: ubuntu-latest
-    name: Satisfy my repo CDO
+    name: Satisfy my repo core
     steps:
+      - name: Delete Draft Releases
+        uses: hugo19941994/delete-draft-releases@v1.0.0
+        with:
+          threshold: '2m'
       - name: Delete those pesky dead branches
         uses: phpdocker-io/github-actions-delete-abandoned-branches@v1
         id: delete_stuff
@@ -20,7 +24,6 @@ jobs:
           github_token: ${{ github.token }}
           last_commit_age_days: 90
           ignore_branches: main,rapid-release,rapid-production,standard-release,standard-production
-          # Disable dry run and actually get stuff deleted
           dry_run: yes
 
       - name: Get output
