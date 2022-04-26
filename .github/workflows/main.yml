@@ -21,4 +21,3 @@ jobs:
           dry_run: true
           delete_tags: false
           extra_protected_branch_regex: ^(main|rapid-*|standard-*)$
-          exclude_open_pr_branches: true
