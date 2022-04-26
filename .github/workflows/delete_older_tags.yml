@@ -1,0 +1,27 @@
+name: Delete unwanted tags
+
+on:
+  # Run in Every 10 Minutes
+  #schedule:
+  #  - cron: "*/10 * * * *"
+
+  # Allow workflow to be manually run from the GitHub UI
+  workflow_dispatch:
+
+jobs:
+  cleanup_old_tags:
+    runs-on: ubuntu-latest
+    name: Delete Old Tags
+    steps:
+      - name: Delete those pesky dead branches
+        uses: phpdocker-io/github-actions-delete-abandoned-branches@v1
+        id: delete_stuff
+        with:
+          github_token: ${{ github.token }}
+          last_commit_age_days: 90
+          ignore_branches: main,rapid-release,rapid-production,standard-release,standard-production
+          # Disable dry run and actually get stuff deleted
+          dry_run: yes
+
+      - name: Get output
+        run: "echo 'Deleted branches: ${{ steps.delete_stuff.outputs.deleted_branches }}'"
