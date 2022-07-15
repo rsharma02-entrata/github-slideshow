@@ -1,0 +1,24 @@
+name: filter commit message
+on: pull_request
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name : GITHUB CONTEXT
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: get commit message
+        run: |
+              commitmsg::${{ github.event.head_commit.message }}
+              echo $commitmsg
+              if: false == contains( $commitmsg , 'Task Id' )
+                echo Task Id is Missing
+              if: contains( $commitmsg , 'Task Id' )
+                echo $commitmsg
